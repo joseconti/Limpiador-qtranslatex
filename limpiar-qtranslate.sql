@@ -180,22 +180,6 @@ end;
 
 ### strip after "en" content
 UPDATE wp_posts SET tmp_excerpt = case when
-LOCATE('[:en]', tmp_excerpt) > 0
-then
-SUBSTRING(
-    tmp_excerpt
-        FROM 1
-        FOR LOCATE(
-                '[:',
-                tmp_excerpt,
-                LOCATE('[:en]', tmp_excerpt) + 5
-        ) - 1
-)
-else
-tmp_excerpt
-end;
-
-UPDATE wp_posts SET tmp_excerpt = case when
 LOCATE('[:es]', tmp_excerpt) > 0
 then
 SUBSTRING(
@@ -227,7 +211,51 @@ else
 tmp_excerpt
 end;
 
+UPDATE wp_3_posts SET tmp_excerpt = case when
+LOCATE('[:ca]', tmp_excerpt) > 0
+then
+SUBSTRING(
+    tmp_excerpt
+        FROM 1
+        FOR LOCATE(
+                '[:',
+                tmp_excerpt,
+                LOCATE('[:ca]', tmp_excerpt) + 5
+        ) - 1
+)
+else
+tmp_excerpt
+end;
+
 ### strip before "en" content
+UPDATE wp_posts SET tmp_excerpt = case when
+LOCATE('[:es]', tmp_excerpt) > 0
+then
+SUBSTRING(
+    tmp_excerpt
+        FROM LOCATE(
+                '[:es]',
+                tmp_excerpt
+        ) + 5
+)
+else
+tmp_excerpt
+end;
+
+UPDATE wp_2_posts SET tmp_excerpt = case when
+LOCATE('[:en]', tmp_excerpt) > 0
+then
+SUBSTRING(
+    tmp_excerpt
+        FROM LOCATE(
+                '[:en]',
+                tmp_excerpt
+        ) + 5
+)
+else
+tmp_excerpt
+end;
+
 UPDATE wp_3_posts SET tmp_excerpt = case when
 LOCATE('[:ca]', tmp_excerpt) > 0
 then
