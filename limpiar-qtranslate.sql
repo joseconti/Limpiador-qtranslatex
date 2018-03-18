@@ -2,7 +2,7 @@
 
 # create temp column to separate post content on <!--more--> tag to simplify queries
 ALTER TABLE  `wp_posts` ADD  `tmp_excerpt` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL;
-ALTER TABLE  `wp_2_posts` ADD  `tmp_excerpt` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL;
+ALTER TABLE  `wp_4_posts` ADD  `tmp_excerpt` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL;
 ALTER TABLE  `wp_3_posts` ADD  `tmp_excerpt` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL;
 
 
@@ -18,7 +18,7 @@ SUBSTRING(
         post_content
     ) - 1
 ) ;
-UPDATE wp_2_posts SET tmp_excerpt =
+UPDATE wp_4_posts SET tmp_excerpt =
 SUBSTRING(
     post_content
     FROM 1
@@ -51,7 +51,7 @@ else
 post_content
 end;
 
-UPDATE wp_2_posts SET post_content = case when
+UPDATE wp_4_posts SET post_content = case when
 LOCATE('<!--more-->', post_content) > 0
 then
 SUBSTRING(
@@ -101,7 +101,7 @@ else
 post_content
 end;
 
-UPDATE wp_2_posts SET post_content = case when
+UPDATE wp_4_posts SET post_content = case when
 LOCATE('[:en]', post_content) > 0
 then
 SUBSTRING(
@@ -148,7 +148,7 @@ else
 post_content
 end;
 
-UPDATE wp_2_posts SET post_content = case when
+UPDATE wp_4_posts SET post_content = case when
 LOCATE('[:en]', post_content) > 0
 then
 SUBSTRING(
@@ -195,7 +195,7 @@ else
 tmp_excerpt
 end;
 
-UPDATE wp_2_posts SET tmp_excerpt = case when
+UPDATE wp_4_posts SET tmp_excerpt = case when
 LOCATE('[:en]', tmp_excerpt) > 0
 then
 SUBSTRING(
@@ -242,7 +242,7 @@ else
 tmp_excerpt
 end;
 
-UPDATE wp_2_posts SET tmp_excerpt = case when
+UPDATE wp_4_posts SET tmp_excerpt = case when
 LOCATE('[:en]', tmp_excerpt) > 0
 then
 SUBSTRING(
@@ -292,7 +292,7 @@ else
 post_title
 end;
 
-UPDATE wp_2_posts SET post_title = case when
+UPDATE wp_4_posts SET post_title = case when
 LOCATE('[:en]', post_title) > 0
 then
 SUBSTRING(
@@ -339,7 +339,7 @@ else
 post_title
 end;
 
-UPDATE wp_2_posts SET post_title = case when
+UPDATE wp_4_posts SET post_title = case when
 LOCATE('[:en]', post_title) > 0
 then
 SUBSTRING(
@@ -387,7 +387,7 @@ else
 post_excerpt
 end;
 
-UPDATE wp_2_posts SET post_excerpt = case when
+UPDATE wp_4_posts SET post_excerpt = case when
 LOCATE('[:en]', post_excerpt) > 0
 then
 SUBSTRING(
@@ -434,7 +434,7 @@ else
 post_excerpt
 end;
 
-UPDATE wp_2_posts SET post_excerpt = case when
+UPDATE wp_4_posts SET post_excerpt = case when
 LOCATE('[:en]', post_excerpt) > 0
 then
 SUBSTRING(
@@ -477,7 +477,7 @@ else
 post_content
 end;
 
-UPDATE wp_2_posts SET post_content = case when
+UPDATE wp_4_posts SET post_content = case when
 CHAR_LENGTH(tmp_excerpt) > 0
 then
 CONCAT(
@@ -503,5 +503,5 @@ end;
 
 ## drop the `tmp_excerpt` column
 ALTER TABLE `wp_posts` DROP `tmp_excerpt`;
-ALTER TABLE `wp_2_posts` DROP `tmp_excerpt`;
+ALTER TABLE `wp_4_posts` DROP `tmp_excerpt`;
 ALTER TABLE `wp_3_posts` DROP `tmp_excerpt`;
